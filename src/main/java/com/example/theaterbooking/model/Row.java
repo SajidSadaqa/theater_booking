@@ -3,6 +3,8 @@ package com.example.theaterbooking.model;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
+
 @Entity @Getter @Setter @NoArgsConstructor
 @Table(
         uniqueConstraints = @UniqueConstraint(name = "uq_row_section_rownumber",
@@ -20,4 +22,7 @@ public class Row {
 
     @Column(nullable = false, length = 30)
     private String category;
+
+    @OneToMany(mappedBy = "row")
+    private List<Seat> seats;
 }

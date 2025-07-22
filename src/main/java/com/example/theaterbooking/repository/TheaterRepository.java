@@ -12,11 +12,12 @@ public interface TheaterRepository extends JpaRepository<Theater, Long> {
     List<Theater> findByIsActiveTrue();
 
     @Query("""
-           select t from Theater t
-           left join fetch t.sections s
-           left join fetch s.seatRows r
-           left join fetch r.seats
-           where t.id = :id
-           """)
+   select distinct t from Theater t
+   left join fetch t.sections s
+   left join fetch s.rows r
+   left join fetch r.seats
+   where t.id = :id
+   """)
     Theater fetchFullLayout(Long id);
+
 }
