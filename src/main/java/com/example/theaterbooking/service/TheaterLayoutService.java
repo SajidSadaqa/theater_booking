@@ -3,6 +3,7 @@ package com.example.theaterbooking.service;
 import com.example.theaterbooking.model.Theater;
 import com.example.theaterbooking.repository.TheaterRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,7 +20,9 @@ public class TheaterLayoutService {
         return theaterRepo.findByIsActiveTrue();
     }
 
+    @Cacheable(value = "theaters", key = "#id")
     public Theater getFullLayout(Long theaterId) {
         return theaterRepo.fetchFullLayout(theaterId);
     }
+
 }
